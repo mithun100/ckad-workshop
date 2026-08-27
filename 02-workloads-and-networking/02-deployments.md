@@ -9,6 +9,12 @@ Deployment.
 Before Deployments, meet the controller they're built on. A **ReplicaSet** keeps a fixed
 number of pod copies running — delete one and it respawns.
 
+![Deployment manages ReplicaSet manages Pod manages Container](images/deployment-hierarchy.png)
+
+*The family tree, one beer at a time: **Deployment** bosses the **ReplicaSet**, which bosses the
+**Pod**, which cradles the **Container**. Nobody feeds themselves — each layer only manages the one
+below it. Remember this and half of Kubernetes workloads suddenly make sense.*
+
 ```yaml
 # manifests/replicaset.yaml
 apiVersion: apps/v1
