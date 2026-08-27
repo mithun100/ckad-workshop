@@ -1,0 +1,18 @@
+# Deliberately broken — references a ConfigMap key that does not exist,
+# used for the live break/troubleshoot exercise in this module.
+# Requires: configmap.yaml applied first (so the ConfigMap exists, just not this key)
+# Apply with: kubectl apply -f broken-configmap-pod.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: checkout-broken-config
+spec:
+  containers:
+  - name: checkout-api
+    image: nginx
+    env:
+    - name: LOG_LEVEL
+      valueFrom:
+        configMapKeyRef:
+          name: checkout-config
+          key: DOES_NOT_EXIST

@@ -1,0 +1,13 @@
+# checkout-db — companion pod with distinct labels, same app family
+# Apply with: kubectl apply -f pod-labels.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: checkout-db
+  labels:
+    app: checkout
+    tier: database
+spec:
+  containers:
+  - name: checkout-db
+    image: nginx

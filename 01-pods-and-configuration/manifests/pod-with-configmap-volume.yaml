@@ -1,0 +1,20 @@
+# checkout-api-vol — ConfigMap injected as a volume; each key becomes a file
+# Requires: configmap.yaml applied first
+# Apply with: kubectl apply -f pod-with-configmap-volume.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: checkout-api-vol
+  labels:
+    app: checkout
+spec:
+  containers:
+  - name: checkout-api
+    image: nginx
+    volumeMounts:
+    - name: config-volume
+      mountPath: /etc/checkout-config
+  volumes:
+  - name: config-volume
+    configMap:
+      name: checkout-config

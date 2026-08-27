@@ -1,0 +1,13 @@
+# Deliberately broken — bad image tag, used for the live break/troubleshoot exercise
+# Instructor applies this as-is; do not fix before class.
+# Apply with: kubectl apply -f broken-pod.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: checkout-broken
+  labels:
+    app: checkout
+spec:
+  containers:
+  - name: checkout-api
+    image: nginx:this-tag-does-not-exist

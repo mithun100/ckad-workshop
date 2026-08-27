@@ -1,0 +1,20 @@
+# checkout-api-env-single — ONE specific ConfigMap key injected via valueFrom,
+# contrast with pod-with-configmap-env.yaml which injects ALL keys via envFrom
+# Requires: configmap.yaml applied first
+# Apply with: kubectl apply -f pod-with-configmap-env-single.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: checkout-api-env-single
+  labels:
+    app: checkout
+spec:
+  containers:
+  - name: checkout-api
+    image: nginx
+    env:
+    - name: LOG_LEVEL
+      valueFrom:
+        configMapKeyRef:
+          name: checkout-config
+          key: LOG_LEVEL

@@ -1,0 +1,9 @@
+# checkout-config — application configuration, externalized from the image
+# Apply with: kubectl apply -f configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: checkout-config
+data:
+  ENV: prod
+  LOG_LEVEL: info

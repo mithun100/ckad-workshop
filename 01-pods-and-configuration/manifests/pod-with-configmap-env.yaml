@@ -1,0 +1,16 @@
+# checkout-api-env — ConfigMap injected as ALL env vars via envFrom
+# Requires: configmap.yaml applied first
+# Apply with: kubectl apply -f pod-with-configmap-env.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: checkout-api-env
+  labels:
+    app: checkout
+spec:
+  containers:
+  - name: checkout-api
+    image: nginx
+    envFrom:
+    - configMapRef:
+        name: checkout-config

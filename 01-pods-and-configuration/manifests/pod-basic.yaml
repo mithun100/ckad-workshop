@@ -1,0 +1,15 @@
+# Basic Pod manifest — checkout-api
+# Apply with: kubectl apply -f pod-basic.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: checkout-api
+  labels:
+    app: checkout
+    tier: backend
+spec:
+  containers:
+  - name: checkout-api
+    image: nginx
+    ports:
+    - containerPort: 80
