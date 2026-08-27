@@ -1,0 +1,17 @@
+# cronjob.yaml — checkout-order-cleanup on a schedule: every 5 minutes.
+# Same task as job.yaml, wrapped in a schedule. Each run creates a Job, which creates a Pod.
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: checkout-order-cleanup-cron
+spec:
+  schedule: "*/5 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: cleanup
+            image: busybox
+            command: ["sh", "-c", "echo cleaning up stale checkout orders; sleep 5; echo done"]
+          restartPolicy: Never

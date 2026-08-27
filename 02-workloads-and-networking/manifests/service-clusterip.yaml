@@ -1,0 +1,15 @@
+# service-clusterip.yaml — internal ClusterIP Service fronting checkout-api-deploy.
+# The selector MUST match the pod labels chosen in Module 1: app=checkout,tier=backend.
+# Get those labels wrong and the Service matches zero pods (empty Endpoints) — see broken-service.yaml.
+apiVersion: v1
+kind: Service
+metadata:
+  name: checkout-api
+spec:
+  type: ClusterIP
+  selector:
+    app: checkout
+    tier: backend
+  ports:
+  - port: 80
+    targetPort: 80

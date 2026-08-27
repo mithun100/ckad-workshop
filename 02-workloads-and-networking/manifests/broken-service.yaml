@@ -1,0 +1,14 @@
+# broken-service.yaml — the selector says tier=backends (typo, plural) so it matches NO pods.
+# The Service is created fine, but its Endpoints list is empty and nothing can reach it.
+# Diagnose with: kubectl get endpoints checkout-api-broken  /  kubectl describe svc checkout-api-broken
+apiVersion: v1
+kind: Service
+metadata:
+  name: checkout-api-broken
+spec:
+  selector:
+    app: checkout
+    tier: backends
+  ports:
+  - port: 80
+    targetPort: 80

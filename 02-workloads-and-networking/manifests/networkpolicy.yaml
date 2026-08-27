@@ -1,0 +1,24 @@
+# networkpolicy.yaml — restrict who can reach checkout-api (tier=backend).
+# Only pods labelled app=checkout,tier=frontend may connect on TCP 80; everything else is denied.
+# NOTE: enforcement requires a CNI that supports NetworkPolicy (Calico, Cilium, etc.).
+#   Docker Desktop's default networking does NOT enforce it — the policy applies but nothing is blocked.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: checkout-api-allow-frontend
+spec:
+  podSelector:
+    matchLabels:
+      app: checkout
+      tier: backend
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: checkout
+          tier: frontend
+    ports:
+    - protocol: TCP
+      port: 80

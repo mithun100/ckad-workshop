@@ -1,0 +1,20 @@
+# job.yaml — checkout-order-cleanup: a one-off batch task (simulated cleanup of stale orders).
+# completions: run the task to success 3 times; parallelism: at most 1 pod at a time;
+# backoffLimit: retry up to 4 times before the Job is marked Failed;
+# activeDeadlineSeconds: hard time cap for the whole Job.
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: checkout-order-cleanup
+spec:
+  completions: 3
+  parallelism: 1
+  backoffLimit: 4
+  activeDeadlineSeconds: 100
+  template:
+    spec:
+      containers:
+      - name: cleanup
+        image: busybox
+        command: ["sh", "-c", "echo cleaning up stale checkout orders; sleep 5; echo done"]
+      restartPolicy: Never

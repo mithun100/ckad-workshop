@@ -1,0 +1,19 @@
+# init-container-pod.yaml — checkout-api waits for checkout-db before it starts.
+# The init container runs to completion FIRST; the app container only starts once it exits 0.
+# Prereq: a Service named checkout-db must exist for the init container to succeed. Without it
+#   the pod stays in Init:0/1 — that is the break/fix exercise in this module.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: checkout-api-init
+  labels:
+    app: checkout
+    tier: backend
+spec:
+  initContainers:
+  - name: wait-for-db
+    image: busybox
+    command: ["sh", "-c", "until nslookup checkout-db; do echo waiting for checkout-db; sleep 2; done"]
+  containers:
+  - name: checkout-api
+    image: nginx

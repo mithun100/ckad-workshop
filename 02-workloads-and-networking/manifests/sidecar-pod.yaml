@@ -1,0 +1,25 @@
+# sidecar-pod.yaml — checkout-api (main app) with a log-shipper sidecar sharing an emptyDir.
+# The sidecar runs ALONGSIDE the app for the whole life of the pod (contrast: init containers run BEFORE).
+apiVersion: v1
+kind: Pod
+metadata:
+  name: checkout-api-sidecar
+  labels:
+    app: checkout
+    tier: backend
+spec:
+  containers:
+  - name: checkout-api
+    image: nginx
+    volumeMounts:
+    - name: logs
+      mountPath: /var/log/checkout
+  - name: log-shipper
+    image: busybox
+    command: ["sh", "-c", "while true; do echo \"$(date) shipped a checkout log line\" >> /var/log/checkout/app.log; sleep 5; done"]
+    volumeMounts:
+    - name: logs
+      mountPath: /var/log/checkout
+  volumes:
+  - name: logs
+    emptyDir: {}

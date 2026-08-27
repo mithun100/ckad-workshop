@@ -1,0 +1,24 @@
+# deployment.yaml — checkout-api as a Deployment: 3 replicas, self-healing, rolling updates.
+# The image tag is pinned so we can `kubectl set image` to a newer tag and watch a rolling update.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: checkout-api-deploy
+  labels:
+    app: checkout
+    tier: backend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: checkout
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: checkout
+        tier: backend
+    spec:
+      containers:
+      - name: checkout-api
+        image: nginx:1.25

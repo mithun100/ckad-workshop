@@ -1,0 +1,25 @@
+# replicaset.yaml — the controller a Deployment manages for you. It self-heals pods (delete one,
+# it respawns), but has NO rollout/rollback machinery — which is exactly why you use a Deployment
+# instead of creating a ReplicaSet directly. Shown here only to make that contrast concrete.
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: checkout-api-rs
+  labels:
+    app: checkout
+    tier: backend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: checkout
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: checkout
+        tier: backend
+    spec:
+      containers:
+      - name: checkout-api
+        image: nginx
