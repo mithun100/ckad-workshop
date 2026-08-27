@@ -41,17 +41,20 @@ k explain pod.spec.containers.resources
 
 > **Exam Tip:** `kubectl explain` is faster than searching kubernetes.io for a field name you half-remember. Use it before you reach for a browser tab.
 
-> **Docs to bookmark** (only `kubernetes.io/docs` and `kubernetes.io/blog` are allowed in the exam): [Pods](https://kubernetes.io/docs/concepts/workloads/pods/) · [kubectl reference](https://kubernetes.io/docs/reference/kubectl/) · [Labels and Selectors](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/) — but reach for `kubectl explain` first; it's faster than tab-hunting.
+> **Docs to search** (only `kubernetes.io/docs` and `kubernetes.io/blog` are open to you in the exam — no bookmarks, so learn to navigate them fast): [Pods](https://kubernetes.io/docs/concepts/workloads/pods/) · [kubectl reference](https://kubernetes.io/docs/reference/kubectl/) · [Labels and Selectors](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/) — but reach for `kubectl explain` first; it's faster than tab-hunting.
 
 ## Labels and selectors (guided — you type this along with the demo)
 
 ```bash
 k run checkout-api --image=nginx --labels="app=checkout,tier=backend" --dry-run=client -o yaml > checkout-pod.yaml
 k apply -f checkout-pod.yaml
+k get pod checkout-api --show-labels
 k get pods -l app=checkout
 k get pods -l 'tier in (backend,frontend)'
 k label pod checkout-api env=dev
 ```
+
+> **Exam Tip:** If `checkout-api` already exists from the earlier imperative `k run`, `k apply` prints a one-time warning about a missing `last-applied-configuration` annotation, then patches it in and reports `configured`. It's harmless — the labels still land. Confirm with `--show-labels`. Mixing imperative (`run`/`create`) and declarative (`apply`) on the same object is what triggers it.
 
 **Why this label choice matters later:** in the next module, a Service will select pods using `app=checkout`. If you mislabel it now, the Service silently matches zero pods later — and that's a real CKAD failure mode, not just a today problem.
 
