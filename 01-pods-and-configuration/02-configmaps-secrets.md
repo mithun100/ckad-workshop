@@ -69,6 +69,8 @@ k exec checkout-api-env -- env | grep -E 'ENV|LOG_LEVEL'
 
 > **Exam Tip:** The exam question specifies HOW to inject — env var vs. volume. Read carefully; the YAML structure is different for each, and using the wrong one loses you the points for that task even if everything else is right.
 
+> **Blanking on the YAML?** Don't guess the nesting from memory — open [Configure a Pod to Use a ConfigMap](https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/) (`kubernetes.io/docs`, allowed in the exam). It has copy-pasteable `envFrom`, `valueFrom`, and volume-mount blocks. Or run `k explain pod.spec.containers.envFrom` / `k explain pod.spec.containers.env.valueFrom` for the field structure without leaving the terminal.
+
 ## Injecting as a volume mount (semi-guided)
 
 Each key in the ConfigMap becomes a file in the mount path. Build this one yourself using the pattern above as reference — mount `checkout-config` at `/etc/checkout-config` in a pod named `checkout-api-vol`.
