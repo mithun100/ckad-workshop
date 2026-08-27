@@ -2,6 +2,8 @@
 
 Do this FIRST — in this workshop and in the real exam. You get 2 hours in the exam; don't waste time on repetitive typing.
 
+> **On macOS? Start bash first.** The exam terminal is bash, but macOS defaults to zsh — and zsh handles some things differently (e.g. it doesn't word-split unquoted variables, so `$do` fails). Run `bash` before anything else so you're practicing in the exact same shell you'll get in the exam. Aliases and exports are per-shell, so set them again after switching.
+
 ## Aliases
 
 ```bash

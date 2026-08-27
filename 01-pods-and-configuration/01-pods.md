@@ -41,6 +41,8 @@ k explain pod.spec.containers.resources
 
 > **Exam Tip:** `kubectl explain` is faster than searching kubernetes.io for a field name you half-remember. Use it before you reach for a browser tab.
 
+> **Docs to bookmark** (only `kubernetes.io/docs` and `kubernetes.io/blog` are allowed in the exam): [Pods](https://kubernetes.io/docs/concepts/workloads/pods/) · [kubectl reference](https://kubernetes.io/docs/reference/kubectl/) · [Labels and Selectors](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/) — but reach for `kubectl explain` first; it's faster than tab-hunting.
+
 ## Labels and selectors (guided — you type this along with the demo)
 
 ```bash
