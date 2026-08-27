@@ -84,12 +84,16 @@ restructuring anything.
 
 - Basic container knowledge (images, containers, why config shouldn't be baked in).
 - Comfort in a terminal.
-- A **KodeKloud account** — the free tier is enough to start.
+- A [**KodeKloud CKAD course**](https://learn.kodekloud.com/learn/courses/certified-kubernetes-application-developer-ckad) or the [Udemy CKAD course](https://www.udemy.com/course/certified-kubernetes-application-developer/) — either gives you the practice labs; the KodeKloud free tier is enough to start.
+- **A Kubernetes cluster you can run `kubectl` against.** Either a **local cluster** — Docker
+  Desktop with Kubernetes enabled, kind, or minikube — or **any other cluster you already
+  have access to**. Confirm it works with `kubectl get nodes` before the session.
 
 Live sessions standardize everyone onto the **KodeKloud playground** specifically so that
 when something breaks mid-session, the environment is identical across the room and the
 troubleshooting stays consistent. The manifests and commands are cluster-agnostic, though —
-they run unmodified on kind, minikube, Docker Desktop, or any conformant cluster.
+they run unmodified on Docker Desktop, kind, minikube, KodeKloud, or any conformant cluster,
+so a local setup works just as well for practice on your own time.
 
 ---
 

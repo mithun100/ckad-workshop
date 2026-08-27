@@ -57,8 +57,8 @@ They carry real exam weight. Budget self-study time for them alongside this work
 
 ## Resources
 
-- **Mumshad Mannambeth's CKAD course** (KodeKloud / Udemy) — the primary reference and the
-  source of the homework labs.
+- **Mumshad Mannambeth's CKAD course** — the primary reference and the source of the
+  homework labs. On [KodeKloud](https://learn.kodekloud.com/learn/courses/certified-kubernetes-application-developer-ckad) or [Udemy](https://www.udemy.com/course/certified-kubernetes-application-developer/).
 - [kubernetes.io/docs](https://kubernetes.io/docs/) — the only documentation allowed in the exam.
 - [kubectl cheat sheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/).
 - [killer.sh](https://killer.sh/) — the exam simulator included with your CKAD registration.
