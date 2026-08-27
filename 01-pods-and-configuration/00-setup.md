@@ -18,14 +18,15 @@ export do='--dry-run=client -o yaml'
 ## vimrc setup
 
 ```bash
-cat << EOF > ~/.vimrc
+grep -q "set expandtab" ~/.vimrc 2>/dev/null || cat << EOF >> ~/.vimrc
+" --- CKAD workshop settings ---
 set tabstop=2
 set shiftwidth=2
 set expandtab
 EOF
 ```
 
-YAML is indentation-sensitive. Without this, a stray tab character breaks your manifest and you'll waste exam minutes hunting for it.
+YAML is indentation-sensitive. Without this, a stray tab character breaks your manifest and you'll waste exam minutes hunting for it. This command checks whether the setting already exists before appending, so it's safe to run multiple times and never overwrites an existing `~/.vimrc` — if you already have a personal vim config, your content stays intact.
 
 ## Verify your cluster
 
@@ -43,4 +44,4 @@ If any of these fail, flag it now — don't wait.
 
 ## Practice Labs
 
-- No dedicated lab for this — it's muscle memory. Type these three blocks every time you open a new cluster, including in Sessions 2 and 3 today.
+- No dedicated lab for this — it's muscle memory. Type these three blocks every time you open a new cluster, including in every later module.

@@ -1,6 +1,6 @@
 # Working with Pods
 
-We're deploying `checkout-api` — the app we'll keep evolving all 3 sessions.
+We're deploying `checkout-api` — the app we'll keep evolving across every module.
 
 ## Create a pod imperatively (instructor demo)
 
@@ -51,7 +51,7 @@ k get pods -l 'tier in (backend,frontend)'
 k label pod checkout-api env=dev
 ```
 
-**Why this label choice matters later:** in Session 2, a Service will select pods using `app=checkout`. If you mislabel it now, the Service silently matches zero pods later — and that's a real CKAD failure mode, not just a today problem.
+**Why this label choice matters later:** in the next module, a Service will select pods using `app=checkout`. If you mislabel it now, the Service silently matches zero pods later — and that's a real CKAD failure mode, not just a today problem.
 
 ## Semi-guided: your turn
 
