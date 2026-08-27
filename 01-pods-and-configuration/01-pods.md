@@ -79,6 +79,10 @@ k edit pod checkout-api
 k delete pod checkout-api-2
 ```
 
+`k edit` opens the *live* object in your editor (vim in the exam). Save and quit, and kubectl applies your change immediately — no separate `apply`. Most pod fields are immutable, though: you can edit labels, annotations, and the container image, but trying to change something immutable (like most of `spec`) is rejected on save. For those, delete and recreate instead.
+
+> **Exam Tip:** `k edit` is fastest for a quick mutable tweak (change an image, add a label). If the edit is rejected as immutable, don't fight it — `k get pod x -o yaml > pod.yaml`, fix the file, `k delete pod x`, then `k apply -f pod.yaml`.
+
 ## Break it / troubleshoot (instructor-led, ~4 minutes)
 
 Instructor applies a pod with a deliberately bad image tag:
