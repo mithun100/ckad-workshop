@@ -66,7 +66,7 @@ restructuring anything.
 | Module | Topics | Status |
 |---|---|---|
 | [`01-pods-and-configuration`](../01-pods-and-configuration/README.md) | Pods, ConfigMaps, Secrets | **Available** |
-| `02-workloads-and-networking` | Multi-container Pods, Deployments, Jobs/CronJobs, Services, NetworkPolicies | Planned |
+| [`02-workloads-and-networking`](../02-workloads-and-networking/README.md) | Multi-container Pods, Deployments, Jobs/CronJobs, Services, NetworkPolicies | **Available** |
 | `03-storage-ingress-helm` | Ingress, Volumes/PVCs, Helm, exam strategy | Planned |
 
 <details>

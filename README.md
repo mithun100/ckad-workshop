@@ -22,11 +22,12 @@ whole point: a sloppy label choice in Module 1 turns into a real, instructive ou
 
 ## Start here
 
-| To find… | Go to |
+| To understand… | Read |
 |---|---|
+| **How the workshop works** — teaching method, the `checkout-api` story, prerequisites | [docs/how-it-works.md](docs/how-it-works.md) |
+| **The CKAD exam** — format, scoring, domain weights, what's out of scope | [docs/exam.md](docs/exam.md) |
+| **Who's running it** | [docs/facilitator.md](docs/facilitator.md) |
 | **When each module maps to a live session** | [SCHEDULE.md](SCHEDULE.md) |
-| **Module 1 — the running scenario, prerequisites, agenda** | [01-pods-and-configuration/README.md](01-pods-and-configuration/README.md) |
-| **Module 2 — workloads and networking** | [02-workloads-and-networking/README.md](02-workloads-and-networking/README.md) |
 
 ## Modules
 
@@ -44,13 +45,9 @@ Modules are published as they are built.
 
 ## How each lesson is structured
 
-Every topic follows the same rhythm, so you always know what's coming:
-
-1. **Instructor demo** — watch the concept built live from scratch.
-2. **Guided / semi-guided repeat** — you do it, with hints tucked behind `<details>` if you get stuck.
-3. **Break it / troubleshoot** — we intentionally apply a broken manifest and diagnose it together.
-4. **Independent challenge** — a timed, exam-style task you solve on your own.
-5. **Docs to search + homework** — the exact kubernetes.io pages to get fast at, plus practice labs.
+Every topic follows the same five-beat rhythm — instructor demo, guided repeat, a
+break-it-on-purpose troubleshooting drill, an independent challenge, then targeted homework.
+The full rationale is in [docs/how-it-works.md](docs/how-it-works.md).
 
 ## Prerequisites
 
@@ -76,4 +73,4 @@ Feedback, issues, and PRs are welcome.
 
 ## License
 
-Intended for release under the MIT License. Add a `LICENSE` file to make it official.
+Released under the [MIT License](LICENSE).

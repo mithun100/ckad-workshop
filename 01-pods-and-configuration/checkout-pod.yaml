@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: checkout
+    tier: backend
+  name: checkout-api
+spec:
+  containers:
+  - image: nginx
+    name: checkout-api
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}
