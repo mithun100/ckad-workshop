@@ -39,14 +39,7 @@ Modules are published as they are built.
 ## Prerequisites
 
 You need a Kubernetes cluster you can reach with `kubectl` and a CKAD course for the homework labs
-— see [full prerequisites](docs/how-it-works.md#prerequisites). Set these exam-style shortcuts in
-your shell first:
-
-```bash
-alias k=kubectl
-export do='--dry-run=client -o yaml'   # generate manifests fast
-alias kn='kubectl config set-context --current --namespace'
-```
+— see [full prerequisites](docs/how-it-works.md#prerequisites).
 
 All manifests use only **public images** (`nginx`, `busybox`) and no cluster-specific features, so
 every example runs anywhere — not just on one vendor's playground.
