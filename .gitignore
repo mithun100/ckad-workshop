@@ -1,0 +1,8 @@
+# Local Copilot workshop prompt — never commit
+ckad-workshop-copilot-prompt.md
+
+# Live-demo scratch files generated during testing (kept locally, not shipped)
+01-pods-and-configuration/app.properties
+01-pods-and-configuration/checkout-pod.yaml
+01-pods-and-configuration/pod.yaml
+01-pods-and-configuration/test.yaml

@@ -10,4 +10,4 @@ metadata:
 spec:
   containers:
   - name: checkout-api
-    image: nginx
+    image: nginx:this-tag-does-not-exist
