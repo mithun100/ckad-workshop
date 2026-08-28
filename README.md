@@ -7,16 +7,9 @@ This is the guided, live-troubleshooting layer that sits **on top of** a structu
 yourself, then deliberately **break it and fix it**, because diagnosing failures under time
 pressure is what the exam actually rewards.
 
-```mermaid
-flowchart LR
-    A["Module 1<br/>Pod + externalized config<br/>ConfigMaps · Secrets"]
-      --> B["Module 2<br/>Deployment + Service<br/>Jobs · NetworkPolicy"]
-      --> C["Module 3<br/>Persistent storage + Ingress<br/>packaged with Helm"]
-```
-
-One app — **`checkout-api`** — is carried across every module. The labels and config you set early
-(`app=checkout,tier=<role>`) become the thing a Service selects on later. That continuity is the
-whole point: a sloppy label choice in Module 1 turns into a real, instructive outage in Module 2.
+The whole workshop follows **one app — `checkout-api`** — as it evolves from a bare Pod into a
+Deployment, then a storage-backed, Ingress-fronted service. The [how it works](docs/how-it-works.md)
+guide covers the teaching method, the running scenario, and the diagram of how the modules connect.
 
 ---
 
@@ -43,24 +36,20 @@ cadence (3 sessions, 5 sessions, or a single all-day workshop) without restructu
 
 Modules are published as they are built.
 
-## How each lesson is structured
-
-Every topic follows the same five-beat rhythm — instructor demo, guided repeat, a
-break-it-on-purpose troubleshooting drill, an independent challenge, then targeted homework.
-The full rationale is in [docs/how-it-works.md](docs/how-it-works.md).
-
 ## Prerequisites
 
-- A working Kubernetes cluster you can reach with `kubectl` (KodeKloud playground, Docker Desktop,
-  kind, minikube — anything where `kubectl get nodes` shows a `Ready` node).
-- These handy exam-style shortcuts in your shell:
-  ```bash
-  alias k=kubectl
-  export do='--dry-run=client -o yaml'   # generate manifests fast
-  alias kn='kubectl config set-context --current --namespace'
-  ```
-- All manifests use only **public images** (`nginx`, `busybox`) and no cluster-specific features,
-  so every example runs anywhere — not just on one vendor's playground.
+You need a Kubernetes cluster you can reach with `kubectl` and a CKAD course for the homework labs
+— see [full prerequisites](docs/how-it-works.md#prerequisites). Set these exam-style shortcuts in
+your shell first:
+
+```bash
+alias k=kubectl
+export do='--dry-run=client -o yaml'   # generate manifests fast
+alias kn='kubectl config set-context --current --namespace'
+```
+
+All manifests use only **public images** (`nginx`, `busybox`) and no cluster-specific features, so
+every example runs anywhere — not just on one vendor's playground.
 
 ## Connect
 
