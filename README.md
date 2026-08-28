@@ -49,7 +49,7 @@ every example runs anywhere — not just on one vendor's playground.
 Built and facilitated by **Mithun Banerjee**. If you attended a session, want to run this for your
 own community, or just want to talk Kubernetes and CKAD — connect with me:
 
-**LinkedIn:** [https://www.linkedin.com/in/mbanerjee/](https://www.linkedin.com/in/mbanerjee/)
+**LinkedIn:** <a href="https://www.linkedin.com/in/mbanerjee/" target="_blank" rel="noopener noreferrer">https://www.linkedin.com/in/mbanerjee/</a>
 
 Feedback, issues, and PRs are welcome.
 
