@@ -101,6 +101,18 @@ port, `nodePort` = the port opened on each node. Traffic flows nodePort → port
 By default every pod can talk to every other pod. A NetworkPolicy locks that down. This one says:
 only `app=checkout,tier=frontend` pods may reach `tier=backend` on port 80.
 
+Make sure the backend it targets is actually running — this is the `checkout-api-deploy` pods
+from the Deployments lesson, labeled `app=checkout,tier=backend`. Check the Deployment itself,
+not just the label — other pods earlier in this module (init container, sidecar demos) reuse the
+same `app=checkout,tier=backend` labels and can make a label-only check look satisfied when the
+Deployment isn't actually there:
+
+```bash
+k get deployment checkout-api-deploy
+# if not found:
+k apply -f manifests/deployment.yaml
+```
+
 ```yaml
 # manifests/networkpolicy.yaml
 apiVersion: networking.k8s.io/v1
@@ -130,10 +142,24 @@ k apply -f manifests/networkpolicy.yaml
 k describe networkpolicy checkout-api-allow-frontend
 ```
 
+No `tier=frontend` pod exists yet — the policy is watching for a label nobody carries. Prove it
+both ways with two throwaway pods:
+
+```bash
+# carries the allowed label — should reach checkout-api on a CNI that enforces policy
+k run frontend-test --image=busybox --labels="app=checkout,tier=frontend" --rm -it --restart=Never \
+  -- wget -qO- --timeout=2 checkout-api
+
+# does NOT carry it — should be blocked on a CNI that enforces policy
+k run other-test --image=busybox --rm -it --restart=Never \
+  -- wget -qO- --timeout=2 checkout-api
+```
+
 > **Exam Tip:** NetworkPolicies are **additive and default-deny once a pod is selected**: the
 > moment a policy selects a pod, everything not explicitly allowed is blocked. Also — enforcement
 > needs a CNI that supports it (Calico, Cilium). On Docker Desktop the policy applies but nothing
-> is actually blocked, so test enforcement on a cluster that supports it. In the exam, it's enforced.
+> is actually blocked, so both `wget`s above will succeed there regardless of labels — test real
+> enforcement on a cluster that supports it. In the exam, it's enforced.
 
 ## Break it / troubleshoot (instructor-led, ~4 minutes)
 
