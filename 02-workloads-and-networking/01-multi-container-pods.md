@@ -73,7 +73,7 @@ spec:
   initContainers:
   - name: wait-for-db
     image: busybox
-    command: ["sh", "-c", "until nslookup checkout-db; do echo waiting for checkout-db; sleep 2; done"]
+    command: ["sh", "-c", "until nslookup checkout-db 2>&1 | grep -q '^Name:'; do echo waiting for checkout-db; sleep 2; done"]
   containers:
   - name: checkout-api
     image: nginx
@@ -101,7 +101,7 @@ k logs checkout-api-init -c wait-for-db
 
 **Expected answer:** the init container is blocking on a `checkout-db` Service that doesn't exist yet, so its DNS lookup never succeeds.
 
-**Root cause:** no `checkout-db` Service for DNS to resolve. **Fix:** give it something to resolve. A headless Service (even with no pods behind it) creates the DNS name.
+**Root cause:** no `checkout-db` Service for DNS to resolve. **Fix:** give it something to resolve. A ClusterIP Service (even with no pods behind it) is enough to create the DNS name — no backend pod required.
 
 ```bash
 k create service clusterip checkout-db --tcp=5432:5432
@@ -110,7 +110,7 @@ k get pod checkout-api-init -w
 
 Once `checkout-db` resolves, the init container exits and `checkout-api` starts — `STATUS` moves to `Running`.
 
-> **Exam Tip:** A pod stuck in `Init:0/1` almost always means an init container's condition isn't met. Check it with `kubectl logs <pod> -c <init-container>` — init container logs are the fast path to the cause.
+> **Exam Tip:** A pod stuck in `Init:0/1` almost always means an init container's condition isn't met. Check it with `kubectl logs <pod> -c <init-container>` — init container logs are the fast path to the cause. Note this lesson greps `nslookup`'s output for a successful `Name:` line rather than trusting its exit code: busybox's `nslookup` can exit non-zero even after resolving correctly (it queries every `/etc/resolv.conf` search suffix and treats any `NXDOMAIN` among them as failure), which would hang this loop forever on some clusters despite the Service existing. A TCP check (`nc -z`) isn't a fix here either — it needs a real backend pod, but the whole point of this exercise is that a bare Service is enough.
 
 ## Semi-guided: your turn
 
@@ -126,7 +126,7 @@ Add a **second** init container to a pod named `checkout-api-init2` that runs *b
     command: ["sh", "-c", "echo preparing checkout-api"]
   - name: wait-for-db
     image: busybox
-    command: ["sh", "-c", "until nslookup checkout-db; do echo waiting for checkout-db; sleep 2; done"]
+    command: ["sh", "-c", "until nslookup checkout-db 2>&1 | grep -q '^Name:'; do echo waiting for checkout-db; sleep 2; done"]
 ```
 Verify order with `k get pod checkout-api-init2` and `k describe pod checkout-api-init2` (Init containers are listed in run order).
 </details>

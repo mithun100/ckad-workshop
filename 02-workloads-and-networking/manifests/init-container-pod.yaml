@@ -2,6 +2,12 @@
 # The init container runs to completion FIRST; the app container only starts once it exits 0.
 # Prereq: a Service named checkout-db must exist for the init container to succeed. Without it
 #   the pod stays in Init:0/1 — that is the break/fix exercise in this module.
+# Greps nslookup's output for a "Name:" line rather than trusting its exit code — busybox
+#   nslookup can exit non-zero even after resolving successfully (it queries every
+#   /etc/resolv.conf search suffix and treats any NXDOMAIN among them as failure), which hangs
+#   this forever on some clusters (observed on Docker Desktop) despite the Service existing.
+#   A plain TCP check (`nc -z`) does NOT work here instead: it needs a real backend pod behind
+#   the Service, but this lesson's point is that a bare Service with no pods is enough.
 apiVersion: v1
 kind: Pod
 metadata:
@@ -13,7 +19,7 @@ spec:
   initContainers:
   - name: wait-for-db
     image: busybox
-    command: ["sh", "-c", "until nslookup checkout-db; do echo waiting for checkout-db; sleep 2; done"]
+    command: ["sh", "-c", "until nslookup checkout-db 2>&1 | grep -q '^Name:'; do echo waiting for checkout-db; sleep 2; done"]
   containers:
   - name: checkout-api
     image: nginx
