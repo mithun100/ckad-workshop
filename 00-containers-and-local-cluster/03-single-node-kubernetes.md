@@ -60,14 +60,14 @@ Dockerfile, your cluster, and a Pod manifest) come together.
 file on its own without opening any other lesson:
 
 ```bash
-k apply -f manifests/checkout-api-local.yaml
-k get pod checkout-api-local -w
+kubectl apply -f manifests/checkout-api-local.yaml
+kubectl get pod checkout-api-local -w
 ```
 
 `port-forward` blocks the terminal it runs in, so open a **second terminal** for it:
 
 ```bash
-k port-forward pod/checkout-api-local 8080:80
+kubectl port-forward pod/checkout-api-local 8080:80
 ```
 
 Then, back in your **first** terminal:
@@ -97,7 +97,7 @@ Service or ReplicaSet never checks who created a pod, only whether its labels ma
 the same mechanism Module 2's label lessons warn about, just encountered from the other side.
 
 ```bash
-k delete pod checkout-api-local
+kubectl delete pod checkout-api-local
 ```
 
 ## Which one should you actually use for this workshop?
