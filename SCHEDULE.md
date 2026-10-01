@@ -5,6 +5,7 @@ to live sessions — re-time delivery here without touching any module folder.
 
 | Session | Date | Module |
 |---|---|---|
+| Session 0 | TBD | [`00-containers-and-local-cluster`](00-containers-and-local-cluster/README.md) |
 | Session 1 | Aug 27, 2026 · done | [`01-pods-and-configuration`](01-pods-and-configuration/README.md) |
 | Session 2 | TBD | [`02-workloads-and-networking`](02-workloads-and-networking/README.md) |
 | Session 3 | TBD | `03-storage-ingress-helm` |

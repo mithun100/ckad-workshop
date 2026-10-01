@@ -65,6 +65,7 @@ restructuring anything.
 
 | Module | Topics | Status |
 |---|---|---|
+| [`00-containers-and-local-cluster`](../00-containers-and-local-cluster/README.md) | Docker, Podman, single-node Kubernetes setup — the prequel | **Available** |
 | [`01-pods-and-configuration`](../01-pods-and-configuration/README.md) | Pods, ConfigMaps, Secrets | **Available** |
 | [`02-workloads-and-networking`](../02-workloads-and-networking/README.md) | Multi-container Pods, Deployments, Jobs/CronJobs, Services, NetworkPolicies | **Available** |
 | `03-storage-ingress-helm` | Ingress, Volumes/PVCs, Helm, exam strategy | Planned |
@@ -72,6 +73,8 @@ restructuring anything.
 <details>
 <summary>Module dependency order</summary>
 
+0. **`00-containers-and-local-cluster`** is the prequel — not graded CKAD content, just getting
+   Docker/Podman and a local cluster running. Skip it if you already have both working.
 1. **`01-pods-and-configuration`** establishes the running `checkout-api` scenario and its
    label scheme (`app=checkout,tier=<role>`). Everything downstream depends on it.
 2. **`02-workloads-and-networking`** requires Module 1 — its Services select on Module 1's

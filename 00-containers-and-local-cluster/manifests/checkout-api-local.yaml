@@ -1,0 +1,51 @@
+# checkout-api-local.yaml — runs the custom image you built by hand in 01-docker-basics.md,
+# on the single-node cluster you set up in this lesson. Self-contained: everything needed to
+# reproduce the image is in this comment, so you don't need to go back to that file.
+#
+# 1. Build the image (skip if you already did this in 01-docker-basics.md):
+#      mkdir checkout-api-image && cd checkout-api-image
+#      cat > index.html << 'EOF'
+#      <!DOCTYPE html>
+#      <html>
+#        <head><title>checkout-api</title></head>
+#        <body>
+#          <h1>checkout-api</h1>
+#          <p>Version 1 — built from scratch, not pulled from a registry.</p>
+#        </body>
+#      </html>
+#      EOF
+#      cat > Dockerfile << 'EOF'
+#      FROM nginx:alpine
+#      COPY index.html /usr/share/nginx/html/index.html
+#      EXPOSE 80
+#      EOF
+#      docker build -t checkout-api:v1 .
+#
+# 2. Make the image visible to your cluster (pick the one matching your Module 0 setup):
+#      Docker Desktop Kubernetes -> nothing to do, it shares your Docker daemon already.
+#      kind                      -> kind load docker-image checkout-api:v1 --name ckad
+#      minikube                  -> minikube image load checkout-api:v1
+#
+# 3. Apply this file, then verify (port-forward blocks, so use a second terminal for it):
+#      kubectl apply -f checkout-api-local.yaml
+#      kubectl get pod checkout-api-local -w
+#      kubectl port-forward pod/checkout-api-local 8080:80   # second terminal
+#      curl http://localhost:8080   # first terminal - should print the SAME HTML from step 1
+#
+# Deliberately NOT labeled app=checkout,tier=backend like the rest of the workshop: on a
+# persistent cluster that already ran Module 2, a leftover ReplicaSet/Deployment selecting
+# those exact labels will "adopt" this pod and delete it within seconds as an unwanted extra
+# replica (confirmed live - this is a real, not theoretical, cross-lesson label collision).
+apiVersion: v1
+kind: Pod
+metadata:
+  name: checkout-api-local
+  labels:
+    app: checkout-local-demo
+spec:
+  containers:
+  - name: checkout-api
+    image: checkout-api:v1
+    imagePullPolicy: Never   # local-only image, not in any registry - never try to pull it
+    ports:
+    - containerPort: 80

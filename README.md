@@ -30,6 +30,7 @@ cadence (3 sessions, 5 sessions, or a single all-day workshop) without restructu
 
 | Module | Topics | Status |
 |---|---|---|
+| [`00-containers-and-local-cluster`](00-containers-and-local-cluster/README.md) | Docker, Podman, single-node Kubernetes setup (the prequel) | **Available** |
 | [`01-pods-and-configuration`](01-pods-and-configuration/README.md) | Pods, ConfigMaps, Secrets | **Available** |
 | [`02-workloads-and-networking`](02-workloads-and-networking/README.md) | Multi-container Pods, Deployments, Jobs/CronJobs, Services, NetworkPolicies | **Available** |
 | `03-storage-ingress-helm` | Ingress, Volumes/PVCs, Helm, exam strategy, mock exam | Planned |
