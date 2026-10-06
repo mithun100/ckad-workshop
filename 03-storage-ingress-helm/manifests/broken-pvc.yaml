@@ -1,0 +1,13 @@
+# broken-pvc.yaml — deliberately requests a StorageClass that doesn't exist.
+# The PVC stays Pending forever instead of erroring loudly — that's the break/fix exercise.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: checkout-broken-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: does-not-exist
+  resources:
+    requests:
+      storage: 128Mi

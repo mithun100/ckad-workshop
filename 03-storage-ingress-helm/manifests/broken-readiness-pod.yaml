@@ -1,0 +1,21 @@
+# broken-readiness-pod.yaml — readiness probe points at the WRONG port (8080, nginx listens on 80).
+# The container stays Running but never becomes Ready, so a Service selecting it gets empty
+# Endpoints — the exact same symptom as Module 2's label-mismatch break/fix, different cause.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: checkout-api-broken-probe
+  labels:
+    app: checkout
+    tier: backend
+spec:
+  containers:
+  - name: checkout-api
+    image: nginx
+    ports:
+    - containerPort: 80
+    readinessProbe:
+      httpGet:
+        path: /
+        port: 8080
+      periodSeconds: 5

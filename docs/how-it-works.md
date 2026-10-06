@@ -40,7 +40,7 @@ The whole workshop follows one application as it grows up.
 flowchart LR
     A["Module 1<br/>Pod + externalized config<br/>ConfigMaps · Secrets"]
       --> B["Module 2<br/>Deployment + Service<br/>Jobs · NetworkPolicy"]
-      --> C["Module 3<br/>Persistent storage + Ingress<br/>packaged with Helm"]
+      --> C["Module 3<br/>Storage · Probes · Resources<br/>Ingress · packaged with Helm"]
 ```
 
 - **It starts** as a bare Pod named `checkout-api`, with its configuration pulled out of
@@ -49,8 +49,9 @@ flowchart LR
   through a Service that selects on the *exact labels you chose in Module 1*. Pick sloppy
   labels early and the Service silently matches zero pods later — a real CKAD failure mode,
   demonstrated on purpose.
-- **It goes to production shape** — persistent storage for its database, an Ingress in
-  front of it, and a Helm packaging pass to tie the lifecycle together.
+- **It goes to production shape** — persistent storage for its database, probes and resource
+  requests/limits so Kubernetes actually knows when it's healthy, an Ingress in front of it,
+  and a Helm packaging pass to tie the lifecycle together.
 
 The label decisions, the config externalization, the failure modes — each module inherits
 consequences from the last.
@@ -68,7 +69,7 @@ restructuring anything.
 | [`00-containers-and-local-cluster`](../00-containers-and-local-cluster/README.md) | Docker, Podman, single-node Kubernetes setup — the prequel | **Available** |
 | [`01-pods-and-configuration`](../01-pods-and-configuration/README.md) | Pods, ConfigMaps, Secrets | **Available** |
 | [`02-workloads-and-networking`](../02-workloads-and-networking/README.md) | Multi-container Pods, Deployments, Jobs/CronJobs, Services, NetworkPolicies | **Available** |
-| `03-storage-ingress-helm` | Ingress, Volumes/PVCs, Helm, exam strategy | Planned |
+| [`03-storage-ingress-helm`](../03-storage-ingress-helm/README.md) | Volumes/PVCs, Probes, Resource Limits, Ingress, Helm, exam strategy | **Available** |
 
 <details>
 <summary>Module dependency order</summary>
@@ -79,7 +80,8 @@ restructuring anything.
    label scheme (`app=checkout,tier=<role>`). Everything downstream depends on it.
 2. **`02-workloads-and-networking`** requires Module 1 — its Services select on Module 1's
    labels.
-3. **`03-storage-ingress-helm`** requires Modules 1 and 2.
+3. **`03-storage-ingress-helm`** requires Modules 1 and 2 — its storage and probes attach to
+   Module 2's Deployments, and its Helm chart packages the same app.
 
 </details>
 

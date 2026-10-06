@@ -1,0 +1,19 @@
+# broken-ingress.yaml — points at a Service name that doesn't exist (checkout-api-svc, the
+# real Service from Module 2 is named checkout-api). Creates fine; routes nowhere.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: checkout-api-ingress-broken
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: checkout.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: checkout-api-svc
+            port:
+              number: 80

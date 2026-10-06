@@ -1,0 +1,29 @@
+# pv-static.yaml + pvc-static.yaml — the OTHER way PVCs get storage: binding to a specific,
+# pre-created PersistentVolume instead of dynamic provisioning. CKAD tests both patterns.
+# Uses hostPath so this runs with zero extra setup on a local single-node cluster (Docker
+# Desktop, kind, minikube) — hostPath is NOT portable to a real multi-node cluster, that
+# limitation is the point of this example, not an oversight.
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: checkout-static-pv
+spec:
+  capacity:
+    storage: 128Mi
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: manual
+  hostPath:
+    path: /tmp/checkout-static-pv
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: checkout-static-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: manual
+  resources:
+    requests:
+      storage: 128Mi

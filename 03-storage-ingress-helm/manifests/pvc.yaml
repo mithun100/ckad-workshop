@@ -1,0 +1,14 @@
+# pvc.yaml — persistent storage for checkout-db's data directory.
+# Relies on the cluster's DEFAULT StorageClass for dynamic provisioning so this works unmodified
+# on Docker Desktop, kind, minikube, and KodeKloud (all ship a default StorageClass) — no
+# storageClassName set here on purpose; omitting it means "use whatever the cluster marks default".
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: checkout-db-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 256Mi

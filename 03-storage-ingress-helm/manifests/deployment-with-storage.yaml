@@ -1,0 +1,31 @@
+# deployment-with-storage.yaml — checkout-db, now backed by the PVC instead of ephemeral storage.
+# Prereq: checkout-db-pvc must exist and be Bound (kubectl apply -f pvc.yaml first).
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: checkout-db-deploy
+  labels:
+    app: checkout
+    tier: database
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: checkout
+      tier: database
+  template:
+    metadata:
+      labels:
+        app: checkout
+        tier: database
+    spec:
+      containers:
+      - name: checkout-db
+        image: nginx
+        volumeMounts:
+        - name: db-data
+          mountPath: /data
+      volumes:
+      - name: db-data
+        persistentVolumeClaim:
+          claimName: checkout-db-pvc

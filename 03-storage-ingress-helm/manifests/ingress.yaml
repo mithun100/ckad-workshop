@@ -1,0 +1,24 @@
+# ingress.yaml — routes HTTP traffic to the checkout-api Service from Module 2.
+# Prereq: an Ingress controller must be running for this to actually route traffic (the
+# resource itself can be created and inspected without one — see 03-ingress.md). Portable
+# install for local clusters: ingress-nginx (kubernetes.io/docs/concepts/services-networking
+# /ingress-controllers/ lists the manifest URL for your platform).
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: checkout-api-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: checkout.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: checkout-api
+            port:
+              number: 80

@@ -1,0 +1,22 @@
+# oom-pod.yaml — deliberately requests less memory than the container needs, then asks the
+# container to allocate more than its LIMIT. Kubernetes kills it: OOMKilled.
+# Uses polinux/stress, the same image the official Kubernetes docs use for this exact exercise
+# (kubernetes.io/docs/tasks/configure-pod-container/assign-memory-resource) — public image.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: checkout-api-oom
+  labels:
+    app: checkout
+    tier: backend
+spec:
+  containers:
+  - name: stress-test
+    image: polinux/stress
+    resources:
+      requests:
+        memory: "50Mi"
+      limits:
+        memory: "100Mi"
+    command: ["stress"]
+    args: ["--vm", "1", "--vm-bytes", "250M", "--vm-hang", "1"]

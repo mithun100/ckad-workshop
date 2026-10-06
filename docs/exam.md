@@ -15,7 +15,7 @@ diagnosing broken resources against the clock.
 | Duration | 2 hours |
 | Tasks | 15–20 |
 | Passing score | 66% |
-| Open book | Yes — `kubernetes.io/docs` and `kubernetes.io/blog` only |
+| Open book | Yes — `kubernetes.io/docs`, `kubernetes.io/blog`, and `helm.sh/docs` |
 | Retake | One free retake included with registration |
 
 > With ~15–20 tasks in 120 minutes, you have roughly **6 minutes per task**. Flag and skip
@@ -39,8 +39,10 @@ diagnosing broken resources against the clock.
   Environment, Configuration and Security.
 - **Module 2 (Workloads & Networking)** — Application Deployment; Services and Networking;
   Application Observability and Maintenance.
-- **Module 3 (Storage, Ingress & Helm)** — Services and Networking; Application Deployment;
-  plus exam strategy and a timed mini-mock.
+- **Module 3 (Storage, Ingress & Helm)** — Application Design and Build (volumes); Application
+  Deployment (Helm); Application Observability and Maintenance (probes); Application
+  Environment, Configuration and Security (resource requests/limits); Services and Networking
+  (Ingress); plus exam strategy and a timed mock covering all three modules.
 
 </details>
 
@@ -59,7 +61,7 @@ They carry real exam weight. Budget self-study time for them alongside this work
 
 - **Mumshad Mannambeth's CKAD course** — the primary reference and the source of the
   homework labs. On [KodeKloud](https://learn.kodekloud.com/learn/courses/certified-kubernetes-application-developer-ckad) or [Udemy](https://www.udemy.com/course/certified-kubernetes-application-developer/).
-- [kubernetes.io/docs](https://kubernetes.io/docs/) — the only documentation allowed in the exam.
+- [kubernetes.io/docs](https://kubernetes.io/docs/) and [helm.sh/docs](https://helm.sh/docs/) — the only documentation allowed in the exam.
 - [kubectl cheat sheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/).
 - [killer.sh](https://killer.sh/) — the exam simulator included with your CKAD registration.
 
