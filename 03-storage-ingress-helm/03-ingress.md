@@ -99,6 +99,18 @@ A single host can route different paths to different Services. Build this one us
 rule above as reference: route `checkout.local/health` to a second Service named `checkout-health`
 (you don't need that Service to exist for this exercise — just the routing rule).
 
+Write the YAML yourself in `manifests/ingress-paths.yaml` (a new scratch file), then check it
+without applying anything first:
+
+```bash
+k apply -f manifests/ingress-paths.yaml --dry-run=server   # validates against the cluster, creates nothing
+```
+
+> **Name collision:** if you give this Ingress a *new* name, the admission webhook rejects it with
+> `host "checkout.local" and path "/" is already defined in ingress default/checkout-api-ingress`.
+> Two Ingresses can't claim the same host+path. Either reuse the name `checkout-api-ingress` (the
+> apply then updates it) or `k delete ingress checkout-api-ingress` first.
+
 <details>
 <summary>Solution</summary>
 
@@ -131,8 +143,20 @@ spec:
               number: 80
 ```
 
-**Order matters:** more specific paths (`/health`) must come before the catch-all (`/`), or the
-catch-all matches first and the specific rule never gets a chance.
+```bash
+k apply -f manifests/ingress-paths.yaml
+k describe ingress checkout-api-ingress     # two paths listed; /health shows "services not found"
+curl -H "Host: checkout.local" http://localhost/          # 200 -> checkout-api
+curl -H "Host: checkout.local" http://localhost/health    # 503 -> checkout-health doesn't exist
+```
+
+**What to observe:** `/` still works, while `/health` returns `503` because its Service doesn't
+exist. That proves the routing rule matched, which is all this exercise asks for. Restore the
+original afterwards with `k apply -f manifests/ingress.yaml`.
+
+**Order doesn't matter to the controller:** the Ingress spec says the longest matching `Prefix`
+wins, so `/health` beats `/` however you order them. Listing the specific path first is still the
+readable convention.
 </details>
 
 ## Break it / troubleshoot (instructor-led, ~4 minutes)
