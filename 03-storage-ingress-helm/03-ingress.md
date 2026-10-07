@@ -36,6 +36,23 @@ inspecting the resource; only actual HTTP routing needs the controller.
 
 Routes `checkout.local` to the `checkout-api` Service from Module 2.
 
+> **Prerequisite — check before you demo.** The Ingress needs a `checkout-api` Service *and* pods
+> labelled `app=checkout,tier=backend` behind it. Both come from Module 2. Check, and apply only
+> what's missing (e.g. after a lab reset):
+>
+> ```bash
+> k get svc checkout-api                          # missing? ->
+> k apply -f ../02-workloads-and-networking/manifests/service-clusterip.yaml
+>
+> k get pods -l app=checkout,tier=backend         # none running? ->
+> k apply -f ../02-workloads-and-networking/manifests/deployment.yaml
+>
+> k get endpoints checkout-api                    # must list pod IPs, not <none>
+> ```
+>
+> Skip this and the controller returns `503 Service Temporarily Unavailable`;
+> `k describe ingress` will show `services "checkout-api" not found`.
+
 ```yaml
 # manifests/ingress.yaml
 apiVersion: networking.k8s.io/v1

@@ -171,6 +171,12 @@ k get pvc checkout-static-pvc
 `requests.storage` the PV's `capacity.storage` can satisfy. Get any of those wrong and the PVC
 stays `Pending` forever instead of erroring — which is exactly the break/fix below.
 
+> **Don't panic if it's `Pending` for the first minute.** The PV controller binds on a periodic
+> resync, so a correct PVC can take 30-60s to flip to `Bound` (`k get pvc -w`). A
+> `storageclass "manual" not found` event is also expected and harmless here — `manual` is just a
+> label that must match on both sides, no StorageClass object backs it. Still `Pending` after a
+> couple of minutes means a real mismatch.
+
 > **Exam Tip:** `hostPath` only works on a single-node cluster (exactly what you're using to
 > practice). It's never the right answer for a real multi-node cluster — that limitation is the
 > lesson, not an oversight.
